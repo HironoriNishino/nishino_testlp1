@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>西野と宮島組</title>
+<link rel="shortcut icon" href="img/favicon.png">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script>
+//実行関数
+$(function () {
+  mouseon("#menubar li");
+  mouseon(".submit");
+
+  menubar_show();
+  menubar_scroll();
+
+  top_movie();
+
+  updown1(".picture1");
+  updown2("#profile img");
+  updown3("#inquirly img");
+
+  checkbutton();
+});
+
+//↓↓関数宣言の皆さん↓↓
+
+//トップのムービー処理関数（最後にメイン画面を表示）
+function top_movie(){
+  //1枚目の処理
+  $("#top").animate({'background-size':'100%'},3000)
+           .animate({'opacity':'0'},200);
+  $("#top p").animate({'opacity':1},3000);
+  //要素の変更
+  setTimeout(function(){
+           $("#top").css({"background-size":"140%",
+                          "background-image":"url(img/main2.jpg)"});
+           $("top p").css("opacity",0);
+           $("#top p").html("<p>弊社が信頼される理由</p>");
+  //2枚目の処理
+           $("#top").animate({'opacity':'1'},500)
+                    .animate({'background-size':'100%'},3000);
+           $("#top p").animate({'opacity':1},3000);
+         },3200);
+  //フェードアウト
+  setTimeout(function(){
+    $("#top").fadeOut();
+    $("#main").show();
+  },6700);
+}
+
+//スクロール時のメニューバー表示関数
+function menubar_show(){
+  $(window).scroll(function(){
+    var worktop = $("#work").offset().top;
+    if($(this).scrollTop() > worktop){
+      $("#menubar").fadeIn();
+    }
+    else{
+      $("#menubar").fadeOut();
+    }
+  });
+}
+
+//メニューバーをクリックした時の自動スクロール関数
+function menubar_scroll(){
+  $("#menubar li").click(function(){
+    var no = $(this).text();
+    switch(no){
+      case "事業内容":
+        var top = $("#work").offset().top;
+        break;
+
+      case "エリア":
+        var top = $("#area").offset().top;
+        break;
+
+      case "リクルート":
+        var top = $("#recruit").offset().top;
+        break;
+
+      case "会社概要":
+        var top = $("#profile").offset().top;
+        break;
+
+      case "お問い合わせ":
+        var top = $("#inquirly").offset().top;
+        break;
+      }
+    $("html,body").animate({'scrollTop':top},1000);
+    });
+}
+
+//マウスを乗せると、カーソルが変わる関数
+function mouseon(target){
+  $(target).hover(
+  function(){
+    $(this).css('cursor','pointer');
+    if(target=".submit"){
+      $(".submit").css('background-image','url(img/send_on.png)');
+    }
+  },
+  function(){
+    $(this).css('cursor','default');
+    if(target=".submit"){
+      $(".submit").css('background-image','url(img/send_off.png)');
+    }
+  });
+}
+
+//作業員画像の上下動ループ関数1
+function updown1(name){
+$(name).animate({'top':"13%"},2000);
+$(name).animate({'top':"15%"},2000);
+setTimeout('updown1("'+name+'")');
+}
+
+//作業員画像の上下動ループ関数2
+function updown2(name){
+$(name).animate({'top':"18%"},2000);
+$(name).animate({'top':"20%"},2000);
+setTimeout('updown2("'+name+'")');
+}
+
+//作業員画像の上下動ループ関数3
+function updown3(name){
+$(name).animate({'top':"8%"},2000);
+$(name).animate({'top':"10%"},2000);
+setTimeout('updown3("'+name+'")');
+}
+
+//確認ボタンを押した時の処理関数
+function checkbutton(){
+  $(".submit").click(function(){
+  for(var n=0; n<5; n++){
+    var text = $("#inquirly input").eq(n).val();
+    if(text==""){
+      break;
+    }
+  }
+  var text2 = $("#inquirly textarea").val();
+  if(text2==""){
+    $("#inquirly p").css('opacity','1');
+  }
+  else{
+    $("#inquirly p").css('opacity','0');
+    var send = confirm("送信しますか？");
+    if(send==true){
+      $("#inquirly table").fadeOut(1000);
+      $("#inquirly p").css('opacity','');
+      $("#inquirly input").fadeOut(1000);
+      setTimeout(function(){
+        $("inquirly p").fadeIn(1000);
+      },1000);
+    }
+  }
+});
+}
+
+</script>
+</head>
+
+<body>
+  <div id="menubar">
+    <img src="img/logo.png">
+    <ul>
+      <li>事業内容</li>
+      <li>エリア</li>
+      <li>リクルート</li>
+      <li>会社概要</li>
+      <li>お問い合わせ</li>
+    </ul>
+  </div>
+
+
+  <div id="top">
+    <p>荷揚げのプロ集団</p>
+  </div>
+
+
+  <div id="main">
+    <img class=logo src="img/logo.png">
+  </div>
+
+
+  <div id="work">
+    <div class="work-text">
+      <h2>荷揚げ（揚重）と言ってもどんな仕事？</h2>
+      <p class="first-text">簡単に言うと</p>
+      <p>建設資材をトラックで建設現場まで運送・重量物を適切な場所へと、</p>
+      <p>運搬・配置などをする専門の職業です。</p>
+
+      <h2>現在の建築現場状況</h2>
+      <p class="first-text">安全・スピーディー・低コストを求められる建設業界にも</p>
+      <p>分業化が進み、各専門職の人が現場で求められるようになりました。</p>
+      <p class="first-text">一昔前の、「誰でもいい」という世界ではなくなってしまったのです。</p>
+      <p>ただ、いまだに学生のアルバイトや年配者が作業現場に出るという業者も</p>
+      <p>少なくはありません。</p>
+      <p>そんな状況を見かねて他業種の職人さん達が手を止めて自分たちで荷揚げを</p>
+      <p>行うといった現場も少なくはないそうです。</p>
+      <p>まさに、本末転倒！！</p>
+      <p class="first-text">宮島組では、</p>
+      <p>弊社指導・教育による荷揚げ屋としてのプロ集団をそろえております。</p>
+      <p>貴社の大切な資材や商品を丁寧・適切に取り扱いし、運搬いたします。</p>
+    </div>
+  </div>
+
+  <div id="area">
+    <h1>活動エリア</h1>
+    <img class="picture1" src="img/picture1.png">
+    <img class="area_bg" src="img/area_bg.png">
+    <img class="map" src="img/map.png">
+  </div>
+
+  <div id="recruit">
+    <h1>人材募集中</h1>
+    <h2>★現場スタッフ募集★</h2>
+    <div class="conditions1">
+      <p>職種</p>
+      <p>荷揚げ、軽作業スタッフ</p>
+      <p>内装資材、建築資材搬入</p>
+      <p>日給</p>
+      <p>現場：7,000円（実働 6H 以内）</p>
+      <p>時間</p>
+      <p>資材搬入 8:00～15:00（実働 6H 以内）</p>
+      <p>休日</p>
+      <p>日曜日・祝日</p>
+      <p>1日2現場で14,000円！！</p>
+      <p>仕事が早く終わっても10,000円保証！</p>
+      <p>直行直帰OK！</p>
+    </div>
+    <div class="conditions1">
+      <p>職種</p>
+      <p>軽作業・手元作業・雑工</p>
+      <p>日給</p>
+      <p>職人手元作業：8,000円（実働 8H）</p>
+      <p>時間</p>
+      <p>手元作業 8:00～17:00（実働 8H）</p>
+      <p>休日</p>
+      <p>日曜日・祝日</p>
+    </div>
+    <div class="conditions2">
+      <div class="conditions2-text">
+        <p>資格</p>
+        <p>未経験者から経験者まで大歓迎！</p>
+        <p>経験者の方は優遇いたします！</p>
+        <p>※試用期間20現場➡資材搬入6,000円、</p>
+        <p>手元作業7,000円</p>
+      </div>
+      <div class="conditions2-text">
+        <p>待遇</p>
+        <p>交通費規定支給、全額日払いOK</p>
+        <p>応募</p>
+        <p>TEL後、履歴書（写真貼付）持参ください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile">
+    <h1>会社概要</h1>
+    <img src="img/picture2.png">
+    <table class="tbl">
+      <tr>
+        <th class="title">会社名</th>
+        <th class="item">宮島組</th>
+      </tr>
+      <tr>
+        <th class="title">代表取締役</th>
+        <th class="item">宮島　秀樹</th>
+      </tr>
+      <tr>
+        <th class="title">本社</th>
+        <th class="item">〒170-0013 東京都豊島区東池袋1-31-2 ルピナス池袋202<br>
+            03-6914-0556(代表)03-6914-0557(FAX)</th>
+      </tr>
+      <tr>
+        <th class="title">銀行取引</th>
+        <th class="item">巣鴨信用金庫</th>
+      </tr>
+      <tr>
+        <th class="title">設立</th>
+        <th class="item">平成28年4月</th>
+      </tr>
+      <tr>
+        <th class="title">取引先</th>
+        <th class="item">三和シャッター</th>
+      </tr>
+    </table>
+  </div>
+
+  <div id="inquirly">
+    <img  src="img/picture3.png">
+    <h1>お問い合わせ</h1>
+    <table class="tbl">
+      <tr>
+        <th class="title">お名前</th>
+        <th class="item"><input type="text" name="name"></th>
+      </tr>
+      <tr>
+        <th class="title">フリガナ</th>
+        <th class="item"><input type="text" name="kana"></th>
+      </tr>
+      <tr>
+        <th class="title">住所</th>
+        <th class="item"><input type="text" name="address"></th>
+      </tr>
+      <tr>
+        <th class="title">電話番号</th>
+        <th class="item"><input type="text" name="telnumber"></th>
+      </tr>
+      <tr>
+        <th class="title">メールアドレス</th>
+        <th class="item"><input type="text" name="mail"></th>
+      </tr>
+      <tr>
+        <th class="title">お問い合わせ内容</th>
+        <th class="item"><textarea></textarea></th>
+      </tr>
+    </table>
+    <p>※入力されていない項目があります。</p>
+    <input class="submit" type="submit" name="submit" value="">
+  </div>
+  <div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3275.174909161618!2d137.79858585004226!3d34.82669458387289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601b1fb2ff5f27b5%3A0x355208a294f5b266!2z44CSNDM0LTAwMTUg6Z2Z5bKh55yM5rWc5p2-5biC5rWc5YyX5Yy65pa85ZGC77yT77yR77yT77yS4oiS77yS!5e0!3m2!1sja!2sjp!4v1565087136228!5m2!1sja!2sjp" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+</body>
+</html>
